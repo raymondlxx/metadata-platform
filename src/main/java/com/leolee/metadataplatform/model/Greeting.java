@@ -1,4 +1,4 @@
-package hello;
+package com.leolee.metadataplatform.model;
 
 /**
  * Created by panxiaobai on 19/08/2017.
