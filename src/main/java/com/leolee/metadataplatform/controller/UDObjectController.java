@@ -1,6 +1,7 @@
 package com.leolee.metadataplatform.controller;
 
 import com.leolee.metadataplatform.common.mapper.UDObjectMapper;
+import com.leolee.metadataplatform.exception.BusinessCheckFailedException;
 import com.leolee.metadataplatform.model.UDObject;
 import com.leolee.metadataplatform.model.UDObjectDTO;
 import com.leolee.metadataplatform.service.UDObjectService;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,7 +18,7 @@ import java.util.UUID;
  * Created by panxiaobai on 19/08/2017.
  */
 @RestController()
-public class UDObjectController {
+public class UDObjectController extends BaseController {
 
     @Autowired
     private UDObjectService udObjectService;
@@ -36,10 +38,10 @@ public class UDObjectController {
     }
 
     @RequestMapping(value = "api/udobject",method = RequestMethod.POST)
-    public String create(@RequestBody UDObject udObject) {
+    public String create(@RequestBody UDObject udObject) throws BusinessCheckFailedException {
 
-
-        return "created:"+UUID.randomUUID().toString();
+        UDObject result=  udObjectService.create(udObject);
+        return result.getId();
     }
 
     @RequestMapping(value = "api/udobject",method = RequestMethod.PUT)
