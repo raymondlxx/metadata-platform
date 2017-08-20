@@ -16,7 +16,7 @@ import java.util.concurrent.Future;
  * Created by panxiaobai on 20/08/2017.
  */
 @Service
-public interface UDObjectRepository extends CrudRepository<UDObject, String>{
+public interface UDObjectRepository extends BaseRepository<UDObject, String>{
 
 
     @Async

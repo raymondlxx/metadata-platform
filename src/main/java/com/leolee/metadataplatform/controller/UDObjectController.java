@@ -23,40 +23,39 @@ public class UDObjectController extends BaseController {
     @Autowired
     private UDObjectService udObjectService;
 
-    @RequestMapping(value = "api/udobject/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "api/udobject/{id}", method = RequestMethod.GET)
     public UDObjectDTO find(@PathVariable("id") String id) {
 
         UDObject udObject = udObjectService.findById(id);
         return UDObjectMapper.toUDObjectDTO(udObject);
     }
 
-    @RequestMapping(value="api/udobjects", method = RequestMethod.GET)
+    @RequestMapping(value = "api/udobjects", method = RequestMethod.GET)
     public List<UDObjectDTO> findAll() {
         List<UDObject> items = udObjectService.findAll();
-
         return UDObjectMapper.toUDObjectDTOs(items);
     }
 
-    @RequestMapping(value = "api/udobject",method = RequestMethod.POST)
+    @RequestMapping(value = "api/udobject", method = RequestMethod.POST)
     public String create(@RequestBody UDObject udObject) throws BusinessCheckFailedException {
 
-        UDObject result=  udObjectService.create(udObject);
+        UDObject result = udObjectService.create(udObject);
         return result.getId();
     }
 
-    @RequestMapping(value = "api/udobject",method = RequestMethod.PUT)
-    public String update(@RequestBody UDObject udObject) {
+    @RequestMapping(value = "api/udobject", method = RequestMethod.PUT)
+    public String update(@RequestBody UDObject udObject) throws BusinessCheckFailedException {
 
-
-        return "updated:"+udObject.toString();
+        udObjectService.update(udObject);
+        return "success";
     }
 
 
-    @RequestMapping(value = "api/udobject/{id}",method = RequestMethod.DELETE)
+    @RequestMapping(value = "api/udobject/{id}", method = RequestMethod.DELETE)
     public String delete(@PathVariable("id") String id) {
 
-        return "deleted:"+udObjectService.deleteById(id);
-
+        udObjectService.deleteById(id);
+        return "success";
     }
 
 }
